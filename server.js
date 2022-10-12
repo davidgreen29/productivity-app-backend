@@ -7,7 +7,7 @@ const app = express();
 
 const weather = require("./routes");
 //development currently should changed to url where it is being hosted 
-const whitelist = ['https://davidsproductivityapp.netlify.app/'];
+const whitelist = ['https://davidsproductivityapp.netlify.app'];
 
 const corsOptions = {
     orgin: (origin, callback) => {
