@@ -9,7 +9,7 @@ const weather = require("./weather/routes.js");
 
 app.use(express.json());
 
-const whitelist = ["https://davids-productivity-server.herokuapp.com"];
+const whitelist = ["https://davidsproductivityapp.netlify.app"];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || whitelist.indexOf(origin) !== -1) {
