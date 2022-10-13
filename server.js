@@ -3,17 +3,13 @@ const express = require("express");
 const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const app = express();
-const port = 3000;
+
 
 const weather = require("./weather/routes.js");
 
 app.use(express.json());
 
-// Use if you're behind a reverse proxy
-// https://expressjs.com/en/guide/behind-proxies.html
-// app.set('trust proxy', 1);
-
-const whitelist = ["https://davidsproductivityapp.netlify.app"];
+const whitelist = ["https://davids-productivity-server.herokuapp.com"];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -27,16 +23,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// If needed: Allow options to pass CORS preflight check
-/* app.options("/*", (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type,Authorization,Content-Length,X-Requested-With"
-  );
-  res.sendStatus(200);
-}); */
 
 const limiter = rateLimit({
   windowMs: 1000,
@@ -44,9 +30,6 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-//test route
-app.get("/", (req, res) => res.json({ success: "Hello World!" }));
-
 app.use("/weather", weather);
 
-app.listen(port, () => console.log(`App listening on port ${port}`))
+app.listen(process.env.PORT)
